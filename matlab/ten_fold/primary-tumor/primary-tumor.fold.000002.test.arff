@@ -1,0 +1,67 @@
+%
+% GALE automatic stratified fold generation for CV
+%
+% Generated at        : Thu Feb 22 00:19:05 CET 2001
+% Random seed         : 69
+% File name           : GALE.primary-tumor.cv.seed.69.fold.000002.test.arff
+% Number of instances : 36
+%
+
+@RELATION primary-tumor
+
+@ATTRIBUTE	age	{'<30','30-59','>=60'}
+@ATTRIBUTE	sex	{male,female}
+@ATTRIBUTE	histologic-type	{epidermoid,adeno,anaplastic}
+@ATTRIBUTE	degree-of-diffe	{well,fairly,poorly}
+@ATTRIBUTE	bone	{yes,no}
+@ATTRIBUTE	bone-marrow	{yes,no}
+@ATTRIBUTE	lung	{yes,no}
+@ATTRIBUTE	pleura	{yes,no}
+@ATTRIBUTE	peritoneum	{yes,no}
+@ATTRIBUTE	liver	{yes,no}
+@ATTRIBUTE	brain	{yes,no}
+@ATTRIBUTE	skin	{yes,no}
+@ATTRIBUTE	neck	{yes,no}
+@ATTRIBUTE	supraclavicular	{yes,no}
+@ATTRIBUTE	axillar	{yes,no}
+@ATTRIBUTE	mediastinum	{yes,no}
+@ATTRIBUTE	abdominal	{yes,no}
+@ATTRIBUTE	class	{lung,'head_and_neck',esophagus,thyroid,stomach,'duoden_and_sm_int',colon,rectum,anus,'salivary_glands',pancreas,gallbladder,liver,kidney,bladder,testis,prostate,ovary,'corpus_uteri','cervix_uteri',vagina,breast}
+
+@DATA
+'>=60',female,?,poorly,no,no,no,no,no,no,no,no,no,no,no,no,yes,ovary
+'30-59',male,adeno,?,yes,no,no,no,no,no,no,no,no,no,no,no,no,kidney
+'30-59',female,adeno,well,no,no,no,yes,yes,no,no,no,no,no,no,no,no,stomach
+'30-59',female,adeno,?,no,no,no,no,no,yes,no,no,no,no,no,no,no,ovary
+'30-59',female,?,?,no,no,no,no,no,no,no,no,yes,no,no,no,no,'head_and_neck'
+'<30',female,?,poorly,yes,no,yes,yes,no,no,no,no,no,no,no,yes,no,lung
+'30-59',male,?,poorly,yes,no,no,no,yes,no,yes,no,no,no,no,yes,yes,lung
+'<30',female,adeno,well,yes,yes,no,no,yes,no,no,no,no,no,no,no,no,stomach
+'30-59',female,adeno,?,no,no,no,no,no,no,no,no,no,yes,yes,no,yes,stomach
+'30-59',female,adeno,well,no,no,no,no,yes,no,no,no,no,no,no,no,no,ovary
+'30-59',female,adeno,well,yes,no,no,no,no,no,no,no,no,no,no,no,no,'corpus_uteri'
+'>=60',male,adeno,well,no,no,no,no,no,yes,no,no,no,no,no,no,no,rectum
+'30-59',male,epidermoid,poorly,yes,no,no,no,no,no,no,no,no,no,no,no,no,lung
+'30-59',female,adeno,?,yes,yes,no,no,yes,yes,no,no,no,no,yes,no,no,breast
+'<30',male,adeno,poorly,yes,yes,yes,no,no,yes,yes,no,no,no,yes,yes,yes,stomach
+'30-59',female,adeno,?,no,no,no,no,no,no,no,no,no,no,yes,no,no,breast
+'>=60',male,adeno,well,no,no,no,no,yes,no,no,no,no,no,no,no,yes,stomach
+'<30',female,adeno,poorly,yes,no,no,no,no,no,no,no,no,no,no,yes,no,lung
+'30-59',male,?,poorly,no,no,no,no,no,no,no,no,no,yes,no,yes,no,lung
+'>=60',female,?,poorly,no,no,yes,no,no,yes,yes,no,no,yes,no,yes,no,lung
+'>=60',female,adeno,poorly,no,no,yes,yes,yes,yes,no,no,no,no,no,yes,yes,gallbladder
+'>=60',female,adeno,?,no,no,yes,no,no,no,no,no,no,no,no,no,no,liver
+'30-59',male,?,poorly,no,no,no,no,yes,yes,no,no,no,no,no,yes,no,lung
+'30-59',female,adeno,?,no,no,no,no,yes,no,no,no,no,no,no,no,yes,ovary
+'>=60',female,adeno,?,no,no,yes,no,no,no,no,no,no,no,no,no,no,'duoden_and_sm_int'
+'30-59',male,?,?,yes,no,no,no,no,no,no,no,no,no,no,no,no,kidney
+'>=60',female,adeno,poorly,no,no,yes,no,no,yes,no,no,no,no,no,yes,yes,pancreas
+'<30',female,?,well,no,no,no,no,no,no,no,no,no,no,no,no,no,kidney
+'>=60',female,?,?,no,no,no,no,no,yes,no,no,no,no,no,no,no,lung
+'>=60',female,?,poorly,yes,no,no,yes,no,yes,no,no,no,no,no,no,no,lung
+'30-59',female,adeno,?,no,no,yes,no,no,no,no,no,no,no,no,no,no,colon
+'30-59',female,adeno,?,no,no,no,no,no,yes,no,no,no,no,no,no,yes,pancreas
+'30-59',male,adeno,well,yes,no,no,no,no,no,no,no,no,no,no,no,no,thyroid
+'>=60',male,adeno,?,no,no,no,no,no,yes,no,no,no,no,no,no,yes,pancreas
+'30-59',male,adeno,?,no,no,yes,yes,no,no,no,no,no,no,no,yes,yes,liver
+'30-59',female,epidermoid,?,yes,no,yes,no,yes,yes,no,no,no,no,no,no,yes,vagina

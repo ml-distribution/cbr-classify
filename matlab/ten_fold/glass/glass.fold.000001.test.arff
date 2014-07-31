@@ -1,0 +1,45 @@
+%
+% GALE automatic stratified fold generation for CV
+%
+% Generated at        : Mon Nov 27 15:55:55 GMT+00:00 2000
+% Random seed         : 69
+% File name           : GALE.Glass.cv.seed.69.fold.000001.test.arff
+% Number of instances : 22
+%
+
+@RELATION Glass
+
+@ATTRIBUTE	'RI'	REAL
+@ATTRIBUTE	'Na'	REAL
+@ATTRIBUTE	'Mg'	REAL
+@ATTRIBUTE	'Al'	REAL
+@ATTRIBUTE	'Si'	REAL
+@ATTRIBUTE	'K'	REAL
+@ATTRIBUTE	'Ca'	REAL
+@ATTRIBUTE	'Ba'	REAL
+@ATTRIBUTE	'Fe'	REAL
+@ATTRIBUTE	'Type'	{'build_wind_float','build_wind_non-float','vehic_wind_float','vehic_wind_non-float',containers,tableware,headlamps}
+
+@DATA
+1.51567,13.29,3.45,1.21,72.74,0.56,8.57,0.0,0.0,'build_wind_float'
+1.52667,13.99,3.7,0.71,71.57,0.02,9.82,0.0,0.1,'build_wind_float'
+1.51514,14.01,2.68,3.5,69.89,1.68,5.87,2.2,0.0,containers
+1.51766,13.21,3.69,1.29,72.61,0.57,8.22,0.0,0.0,'build_wind_float'
+1.52068,13.55,2.09,1.67,72.18,0.53,9.57,0.27,0.17,'build_wind_non-float'
+1.51707,13.48,3.48,1.71,72.52,0.62,7.99,0.0,0.0,'build_wind_non-float'
+1.51839,12.85,3.67,1.24,72.57,0.62,8.68,0.0,0.35,'build_wind_non-float'
+1.51872,12.93,3.66,1.56,72.51,0.58,8.55,0.0,0.12,'build_wind_non-float'
+1.51786,12.73,3.43,1.19,72.95,0.62,8.76,0.0,0.3,'build_wind_float'
+1.51617,14.95,0.0,2.27,73.3,0.0,8.71,0.67,0.0,headlamps
+1.51623,14.14,0.0,2.88,72.61,0.08,9.18,1.06,0.0,headlamps
+1.51673,13.3,3.64,1.53,72.53,0.65,8.03,0.0,0.29,'build_wind_non-float'
+1.52177,13.75,1.01,1.36,72.19,0.33,11.14,0.0,0.0,'build_wind_non-float'
+1.5175,12.82,3.55,1.49,72.75,0.54,8.52,0.0,0.19,'build_wind_float'
+1.52127,14.32,3.9,0.83,71.5,0.0,9.49,0.0,0.0,'vehic_wind_float'
+1.51905,13.6,3.62,1.11,72.64,0.14,8.76,0.0,0.0,'build_wind_float'
+1.51683,14.56,0.0,1.98,73.29,0.0,8.52,1.57,0.07,headlamps
+1.51667,12.94,3.61,1.26,72.75,0.56,8.6,0.0,0.0,'build_wind_non-float'
+1.52213,14.21,3.82,0.47,71.77,0.11,9.57,0.0,0.0,'build_wind_float'
+1.51592,12.86,3.52,2.12,72.66,0.69,7.97,0.0,0.0,'build_wind_non-float'
+1.5161,13.42,3.4,1.22,72.69,0.59,8.32,0.0,0.0,'vehic_wind_float'
+1.51755,13.0,3.6,1.36,72.99,0.57,8.4,0.0,0.11,'build_wind_float'

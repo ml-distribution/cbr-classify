@@ -1,0 +1,43 @@
+%
+% GALE automatic stratified fold generation for CV
+%
+% Generated at        : Mon Nov 27 15:55:55 GMT+00:00 2000
+% Random seed         : 69
+% File name           : GALE.Glass.cv.seed.69.fold.000006.test.arff
+% Number of instances : 20
+%
+
+@RELATION Glass
+
+@ATTRIBUTE	'RI'	REAL
+@ATTRIBUTE	'Na'	REAL
+@ATTRIBUTE	'Mg'	REAL
+@ATTRIBUTE	'Al'	REAL
+@ATTRIBUTE	'Si'	REAL
+@ATTRIBUTE	'K'	REAL
+@ATTRIBUTE	'Ca'	REAL
+@ATTRIBUTE	'Ba'	REAL
+@ATTRIBUTE	'Fe'	REAL
+@ATTRIBUTE	'Type'	{'build_wind_float','build_wind_non-float','vehic_wind_float','vehic_wind_non-float',containers,tableware,headlamps}
+
+@DATA
+1.52172,13.48,3.74,0.9,72.01,0.18,9.61,0.0,0.07,'build_wind_float'
+1.51588,13.12,3.41,1.58,73.26,0.07,8.39,0.0,0.19,'build_wind_non-float'
+1.51627,13.0,3.58,1.54,72.83,0.61,8.04,0.0,0.0,'build_wind_non-float'
+1.5221,13.73,3.84,0.72,71.76,0.17,9.74,0.0,0.0,'build_wind_float'
+1.51796,13.5,3.36,1.63,71.94,0.57,8.81,0.0,0.09,'vehic_wind_float'
+1.51645,13.4,3.49,1.52,72.65,0.67,8.08,0.0,0.1,'build_wind_non-float'
+1.51569,13.24,3.49,1.47,73.25,0.38,8.03,0.0,0.0,'build_wind_non-float'
+1.51662,12.85,3.51,1.44,73.01,0.68,8.23,0.06,0.25,'build_wind_non-float'
+1.51909,13.89,3.53,1.32,71.81,0.51,8.78,0.11,0.0,'build_wind_float'
+1.52177,13.2,3.68,1.15,72.75,0.54,8.52,0.0,0.0,'build_wind_non-float'
+1.52152,13.05,3.65,0.87,72.22,0.19,9.85,0.0,0.17,'build_wind_float'
+1.51918,14.04,3.58,1.37,72.08,0.56,8.3,0.0,0.0,'build_wind_float'
+1.52151,11.03,1.71,1.56,73.44,0.58,11.62,0.0,0.0,containers
+1.51685,14.92,0.0,1.99,73.06,0.0,8.4,1.59,0.0,headlamps
+1.51824,12.87,3.48,1.29,72.95,0.6,8.43,0.0,0.0,'build_wind_float'
+1.51651,14.38,0.0,1.94,73.61,0.0,8.48,1.57,0.0,headlamps
+1.51751,12.81,3.57,1.35,73.02,0.62,8.59,0.0,0.0,'build_wind_float'
+1.51708,13.72,3.68,1.81,72.06,0.64,7.88,0.0,0.0,'build_wind_non-float'
+1.51721,12.87,3.48,1.33,73.04,0.56,8.43,0.0,0.0,'build_wind_float'
+1.52247,14.86,2.2,2.06,70.26,0.76,9.76,0.0,0.0,headlamps

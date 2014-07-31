@@ -1,0 +1,94 @@
+%
+% GALE automatic stratified fold generation for CV
+%
+% Generated at        : Tue Nov 28 11:16:50 GMT+00:00 2000
+% Random seed         : 69
+% File name           : GALE.wisconsin-breast-cancer.cv.seed.69.fold.000000.test.arff
+% Number of instances : 71
+%
+
+@RELATION wisconsin-breast-cancer
+
+@ATTRIBUTE	Clump_Thickness	INTEGER [1,10]
+@ATTRIBUTE	Cell_Size_Uniformity	INTEGER [1,10]
+@ATTRIBUTE	Cell_Shape_Uniformity	INTEGER [1,10]
+@ATTRIBUTE	Marginal_Adhesion	INTEGER [1,10]
+@ATTRIBUTE	Single_Epi_Cell_Size	INTEGER [1,10]
+@ATTRIBUTE	Bare_Nuclei	INTEGER [1,10]
+@ATTRIBUTE	Bland_Chromatin	INTEGER [1,10]
+@ATTRIBUTE	Normal_Nucleoli	INTEGER [1,10]
+@ATTRIBUTE	Mitoses	INTEGER [1,10]
+@ATTRIBUTE	Class	{benign,malignant}
+
+@DATA
+2,1,1,1,2,1,3,1,1,benign
+1,1,1,1,2,1,2,1,1,benign
+8,10,10,10,8,10,10,7,3,malignant
+3,1,1,1,2,1,2,1,1,benign
+7,6,6,3,2,10,7,1,1,malignant
+4,1,1,1,1,1,2,1,1,benign
+4,4,2,1,2,5,2,1,2,benign
+3,1,1,1,1,1,2,1,1,benign
+3,2,2,2,2,1,4,2,1,benign
+5,1,3,1,2,1,2,1,1,benign
+1,1,1,1,2,1,2,1,1,benign
+2,1,1,2,3,1,2,1,1,benign
+5,1,2,1,2,1,3,1,1,benign
+5,1,3,1,2,1,2,1,1,benign
+3,2,2,1,4,3,2,1,1,benign
+1,1,1,1,1,1,2,1,1,benign
+9,5,5,2,2,2,5,1,1,malignant
+5,10,10,10,10,10,10,1,1,malignant
+2,1,1,1,2,1,2,1,1,benign
+4,1,2,1,2,1,1,1,1,benign
+4,7,8,3,4,10,9,1,1,malignant
+7,3,2,10,5,10,5,4,4,malignant
+6,1,1,1,2,1,3,1,1,benign
+1,3,3,2,2,1,7,2,1,benign
+5,1,1,1,2,1,2,2,1,benign
+9,10,10,10,10,10,10,10,1,malignant
+3,1,1,3,2,1,1,1,1,benign
+1,1,1,1,2,1,3,1,1,benign
+5,1,2,1,2,1,1,1,1,benign
+10,10,10,10,3,10,10,6,1,malignant
+10,10,10,10,5,10,10,10,7,malignant
+1,1,1,1,2,1,1,1,1,benign
+10,3,5,1,10,5,3,10,2,malignant
+5,8,7,7,10,10,5,7,1,malignant
+1,1,1,1,2,1,3,1,1,benign
+2,1,1,1,2,1,3,1,1,benign
+6,1,1,3,2,1,1,1,1,benign
+6,1,1,1,1,1,1,1,1,benign
+3,1,1,1,2,1,1,1,1,benign
+4,1,1,2,2,1,2,1,1,benign
+3,1,1,1,2,1,2,1,2,benign
+8,4,6,3,3,1,4,3,1,benign
+3,1,1,1,2,1,1,1,1,benign
+8,10,3,2,6,4,3,10,1,malignant
+7,8,7,2,4,8,3,8,2,malignant
+5,2,2,2,1,1,2,1,1,benign
+10,4,3,1,3,3,6,5,2,malignant
+1,1,1,1,3,2,2,1,1,benign
+4,1,2,1,2,1,2,1,1,benign
+5,2,2,2,2,1,1,1,2,benign
+3,7,7,4,4,9,4,8,1,malignant
+3,1,2,2,2,1,1,1,1,benign
+1,1,1,1,1,1,3,1,1,benign
+5,5,5,8,10,8,7,3,7,malignant
+2,3,1,1,3,1,1,1,1,benign
+1,1,1,1,1,1,2,1,1,benign
+3,2,1,2,2,1,3,1,1,benign
+8,7,8,5,10,10,7,2,1,malignant
+3,1,1,1,2,2,3,1,1,benign
+1,2,3,1,2,1,1,1,1,benign
+1,1,1,1,2,1,1,1,1,benign
+3,1,1,1,2,1,2,1,1,benign
+4,10,8,5,4,1,10,1,1,malignant
+6,10,10,10,10,10,8,10,10,malignant
+9,6,9,2,10,6,2,9,10,malignant
+4,2,1,1,2,2,3,1,1,benign
+5,4,6,6,4,10,4,3,1,malignant
+10,4,5,4,3,5,7,3,1,malignant
+4,8,6,3,4,10,7,1,1,malignant
+5,1,1,1,1,1,3,1,1,benign
+3,1,1,2,2,1,1,1,1,benign

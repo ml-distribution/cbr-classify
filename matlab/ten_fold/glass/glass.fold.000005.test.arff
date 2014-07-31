@@ -1,0 +1,46 @@
+%
+% GALE automatic stratified fold generation for CV
+%
+% Generated at        : Mon Nov 27 15:55:55 GMT+00:00 2000
+% Random seed         : 69
+% File name           : GALE.Glass.cv.seed.69.fold.000005.test.arff
+% Number of instances : 23
+%
+
+@RELATION Glass
+
+@ATTRIBUTE	'RI'	REAL
+@ATTRIBUTE	'Na'	REAL
+@ATTRIBUTE	'Mg'	REAL
+@ATTRIBUTE	'Al'	REAL
+@ATTRIBUTE	'Si'	REAL
+@ATTRIBUTE	'K'	REAL
+@ATTRIBUTE	'Ca'	REAL
+@ATTRIBUTE	'Ba'	REAL
+@ATTRIBUTE	'Fe'	REAL
+@ATTRIBUTE	'Type'	{'build_wind_float','build_wind_non-float','vehic_wind_float','vehic_wind_non-float',containers,tableware,headlamps}
+
+@DATA
+1.51769,12.45,2.71,1.29,73.7,0.56,9.06,0.0,0.24,'build_wind_float'
+1.5164,14.37,0.0,2.74,72.85,0.0,9.45,0.54,0.0,headlamps
+1.5173,12.35,2.72,1.63,72.87,0.7,9.23,0.0,0.0,'build_wind_non-float'
+1.51631,13.34,3.57,1.57,72.87,0.61,7.89,0.0,0.0,'build_wind_non-float'
+1.52171,11.56,1.88,1.56,72.86,0.47,11.41,0.0,0.0,containers
+1.51666,12.86,0.0,1.83,73.88,0.97,10.17,0.0,0.0,containers
+1.51763,12.61,3.59,1.31,73.29,0.58,8.5,0.0,0.0,'build_wind_float'
+1.51846,13.41,3.89,1.33,72.38,0.51,8.28,0.0,0.0,'build_wind_non-float'
+1.51768,12.65,3.56,1.3,73.08,0.61,8.69,0.0,0.14,'build_wind_float'
+1.5161,13.33,3.53,1.34,72.67,0.56,8.33,0.0,0.0,'vehic_wind_float'
+1.51916,14.15,0.0,2.09,72.74,0.0,10.88,0.0,0.0,tableware
+1.51775,12.85,3.48,1.23,72.97,0.61,8.56,0.09,0.22,'build_wind_float'
+1.51674,12.87,3.56,1.64,73.14,0.65,7.99,0.0,0.0,'build_wind_non-float'
+1.52365,15.79,1.83,1.31,70.43,0.31,8.61,1.68,0.0,headlamps
+1.51689,12.67,2.88,1.71,73.21,0.73,8.54,0.0,0.0,'build_wind_non-float'
+1.51911,13.9,3.73,1.18,72.12,0.06,8.89,0.0,0.0,'build_wind_float'
+1.51851,13.2,3.63,1.07,72.83,0.57,8.41,0.09,0.17,'build_wind_non-float'
+1.52211,14.19,3.78,0.91,71.36,0.23,9.14,0.0,0.37,'vehic_wind_float'
+1.52315,13.44,3.34,1.23,72.38,0.6,8.83,0.0,0.0,headlamps
+1.52101,13.64,4.49,1.1,71.78,0.06,8.75,0.0,0.0,'build_wind_float'
+1.51783,12.69,3.54,1.34,72.95,0.57,8.75,0.0,0.0,'build_wind_float'
+1.51299,14.4,1.74,1.54,74.55,0.0,7.59,0.0,0.0,tableware
+1.53393,12.3,0.0,1.0,70.16,0.12,16.19,0.0,0.24,'build_wind_non-float'

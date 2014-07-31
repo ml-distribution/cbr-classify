@@ -1,0 +1,363 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>demo_feature_select</title>
+      <meta name="generator" content="MATLAB 7.8">
+      <meta name="date" content="2010-03-16">
+      <meta name="m-file" content="demo_feature_select"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#2">Introduction</a></li>
+               <li><a href="#7">Smoothing</a></li>
+               <li><a href="#10">Diamond</a></li>
+               <li><a href="#12">Higher-Order interaction</a></li>
+            </ul>
+         </div><pre class="codeinput"><span class="comment">% DEMO_FEATURE_SELECT - demonstrate feature selection algorithms on some</span>
+<span class="comment">% toy examples.</span>
+</pre><h2>Introduction<a name="2"></a></h2>
+         <p>The problem of Feature Selection is: Given a (usually large) number of noisy and partly redundant variables and a target that
+            we would like to predict, choose a small but indicative subset as input to a classification or regression technique. While
+            <i>wrappers</i> employ one specific such technique, <i>filters</i> try to come up with a "most informative subset" (in some sense to be defined). Several such criteria are based on Shannon
+            information (<i>mutual information</i> between two variables, or <i>interaction information</i> between larger subsets). The Matlab function <tt>select_features</tt> captures several criteria previously proposed in the literature, and some generalizations thereof. For some more background
+            and comparisons, see e.g.: Gavin Brown, A New Perspective for Information Theoretic Feature Selection, Artificial Intelligence
+            and Statistics, 2009.
+         </p><pre>In the first example, we generate a very simple dependence: X1,X2,X3 are
+normally distributed variables. Our target, X3, is a noisy observation
+of X1. X2 is uncorrelated with either of them.</pre><pre>     X1
+      \
+   X2  X3</pre><pre class="codeinput">nsamples      = 1000;
+data          = zeros(nsamples,3);
+data(:,[1 2]) = randn(nsamples,2);
+data(:,3)    =  0.5*data(:,1) + 0.5*randn(nsamples,1);
+</pre><p>For calculating mutual information, continuous variables have to be <i>discretized</i>. The function <tt>quantize</tt> offers several options to do this. We choose the simplest case of binary variables.
+         </p><pre class="codeinput">data_quant=quantize(data,<span class="string">'levels'</span>,2);
+</pre><p>Then, we run the default feature selection algorithm, called 'first order utility'. It is based on approximating the mutual
+            information between the set of selected variables and the target by expanding interaction information terms of up to degree
+            2. In each step, the variable with the highest estimated <i>incremental</i> gain is selected greedily. The output distinguishes between <i>relevance</i>, i.e., mutual information between a feature and the target; <i>redundancy</i>, i.e., mutual information between different variables; and <i>conditional redundancy</i>, which measures the increase of mutual information between the previously selected variables and the target, conditional
+            on a selected variable.
+         </p><pre class="codeinput">[steps,sel_flag,rel,red,cond_red] = select_features(data_quant(:,1:2),data_quant(:,3),2);
+</pre><pre class="codeoutput">using settings: degree 2, pessimistic 0, dir_fwd 1, dir_bwd 0, prior 0.000000, red_wt 1.000000, cond_red_wt 1.000000
+1. select 1, score 0.201650 (relevance 0.201650, redundancy 0.000000, conditional redundancy 0.000000, red weight 1.000000, cond red weight 1.000000)
+2. select 2, score 0.000419 (relevance 0.000416, redundancy 0.002263, conditional redundancy 0.002266, red weight 1.000000, cond red weight 1.000000)
+Elapsed time is 1.622600 seconds.
+</pre><p>As expected, X1 gets a significantly higher score than X2. You can inspect the results more closely in the output arguments
+            (<tt>steps</tt> for the sequence of selections, scores, and (conditional) redundancies; <tt>sel_flag</tt> for the finally selected variables; and the final values of relevance and conditional redundancy, for all variables. The
+            final scores are computed as sum([rel; - red; cond_red]).
+         </p>
+         <h2>Smoothing<a name="7"></a></h2>
+         <p>A general issue with (especially higher-order) interaction information is sparsity of data. By subdividing our observed data
+            into many categories, we are led to believe spurious associations. For example, look what happens to the above example if
+            we increase the quantization level and decrease the number of samples:
+         </p><pre class="codeinput">nsamples      = 100;
+data          = zeros(nsamples,3);
+data(:,[1 2]) = randn(nsamples,2);
+data(:,3)    =  0.5*data(:,1) + 0.5*randn(nsamples,1);
+data_quant=quantize(data,<span class="string">'levels'</span>,5);
+[steps,sel_flag,rel,red,cond_red] = select_features(data_quant(:,1:2),data_quant(:,3),2);
+</pre><pre class="codeoutput">using settings: degree 2, pessimistic 0, dir_fwd 1, dir_bwd 0, prior 0.000000, red_wt 1.000000, cond_red_wt 1.000000
+1. select 1, score 0.355160 (relevance 0.355160, redundancy 0.000000, conditional redundancy 0.000000, red weight 1.000000, cond red weight 1.000000)
+2. select 2, score 0.611538 (relevance 0.209419, redundancy 0.142521, conditional redundancy 0.544640, red weight 1.000000, cond red weight 1.000000)
+Elapsed time is 0.008645 seconds.
+</pre><p>Notice that the conditional redundancy of the uncorrelated variable X2 (after addition of X1) now seems to be higher than
+            the mutual information between X1 and X2. Several remedies have been suggested, e.g., downweighting the (conditional) redundancy
+            terms (You can explore these options in the select_features function). In contrast, we propose to use a common method in Bayesian
+            statistics, namely adding a prior in the form of "pseudo-samples' drawn from the marginal distributions.
+         </p><pre class="codeinput">[steps,sel_flag,rel,red,cond_red] = select_features(data_quant(:,1:2),data_quant(:,3),2,<span class="string">'prior'</span>,1);
+</pre><pre class="codeoutput">using settings: degree 2, pessimistic 0, dir_fwd 1, dir_bwd 0, prior 0.010000, red_wt 1.000000, cond_red_wt 1.000000
+1. select 1, score 0.206970 (relevance 0.206970, redundancy 0.000000, conditional redundancy 0.000000, red weight 1.000000, cond red weight 1.000000)
+2. select 2, score 0.123660 (relevance 0.123831, redundancy 0.090154, conditional redundancy 0.089983, red weight 1.000000, cond red weight 1.000000)
+Elapsed time is 0.048254 seconds.
+</pre><p>In this case, we are adding one pseudo-sample to each possible combination of joint variable values. As a result, while all
+            scores (including the one for X1) decrease, the irrelevant X2 is reduced much more rapidly.
+         </p>
+         <h2>Diamond<a name="10"></a></h2>
+         <p>This example contains 4 variables in the well-known diamond shape. X4 is our target.</p><pre>    X1
+   /  \
+  X2   X4
+   \   /
+    X3</pre><pre class="codeinput">nsamples=10000;
+data=zeros(nsamples,4);
+data(:,1)=randn(nsamples,1);
+data(:,2)= 0.5*data(:,1) + 0.5*randn(nsamples,1);
+data(:,4)= 0.5*data(:,1) + 0.5*randn(nsamples,1);
+data(:,3)= 0.5*data(:,2) + 0.5*data(:,4) + 0.5*randn(nsamples,1);
+
+data_quant=quantize(data,<span class="string">'levels'</span>,2);
+[steps,sel_flag,rel,red,cond_red] = select_features(data_quant(:,1:3),data_quant(:,4),3, <span class="string">'degree'</span>, 3);
+</pre><pre class="codeoutput">using settings: degree 3, pessimistic 0, dir_fwd 1, dir_bwd 0, prior 0.000000, red_wt 1.000000, cond_red_wt 1.000000
+1. select 1, score 0.177202 (relevance 0.177202, redundancy 0.000000, conditional redundancy 0.000000, red weight 1.000000, cond red weight 1.000000)
+2. select 3, score 0.065645 (relevance 0.156249, redundancy 0.142378, conditional redundancy 0.051774, red weight 1.000000, cond red weight 1.000000)
+3. select 2, score 0.000596 (relevance 0.081238, redundancy 0.260985, conditional redundancy 0.180343, red weight 1.000000, cond red weight 1.000000)
+Elapsed time is 0.482361 seconds.
+</pre><p>Since X3 depends on X2 as well, X1 receives a higher score. Clearly, due to the common dependency, X2 bears some mutual information
+            on X4. Note, however, how this is outweighed by the interaction term (redundancy - conditional redundancy): In fact, once
+            we know X1, X2 cannot provide any additional information about X4.
+         </p>
+         <h2>Higher-Order interaction<a name="12"></a></h2>
+         <p>Assume binary variables X1 .. X5, where our target, X5, is the logical <i>exclusive or</i> of X1..X3. We include the independent X4 for illustration.
+         </p><pre>     X1   X2  X3  X4
+      \   |  /
+         X5</pre><pre class="codeinput">data=zeros(nsamples,5);
+data(:,1:4) = floor(rand(nsamples,4)/0.5);
+data(:,5)   = xor(xor(data(:,1),data(:,2)),data(:,3));
+[steps,sel_flag,rel,red,cond_red] = select_features(data(:,1:4),data(:,5),4);
+</pre><pre class="codeoutput">using settings: degree 2, pessimistic 0, dir_fwd 1, dir_bwd 0, prior 0.000000, red_wt 1.000000, cond_red_wt 1.000000
+1. select 1, score 0.000072 (relevance 0.000072, redundancy 0.000000, conditional redundancy 0.000000, red weight 1.000000, cond red weight 1.000000)
+2. select 2, score 0.000146 (relevance 0.000002, redundancy 0.000067, conditional redundancy 0.000211, red weight 1.000000, cond red weight 1.000000)
+3. select 3, score 0.000242 (relevance 0.000062, redundancy 0.000080, conditional redundancy 0.000260, red weight 1.000000, cond red weight 1.000000)
+4. select 4, score 0.000046 (relevance 0.000012, redundancy 0.000158, conditional redundancy 0.000191, red weight 1.000000, cond red weight 1.000000)
+Elapsed time is 0.179574 seconds.
+</pre><p>The default algorithm only considers interactions of degree 2, and therefore cannot find the relationship. We have to switch
+            to degree 3:
+         </p><pre class="codeinput">[steps,sel_flag,rel,red,cond_red] = select_features(data(:,1:4),data(:,5),4,<span class="string">'degree'</span>, 3);
+</pre><pre class="codeoutput">using settings: degree 3, pessimistic 0, dir_fwd 1, dir_bwd 0, prior 0.000000, red_wt 1.000000, cond_red_wt 1.000000
+1. select 1, score 0.000072 (relevance 0.000072, redundancy 0.000000, conditional redundancy 0.000000, red weight 1.000000, cond red weight 1.000000)
+2. select 2, score 0.000146 (relevance 0.000002, redundancy 0.000067, conditional redundancy 0.000211, red weight 1.000000, cond red weight 1.000000)
+3. select 3, score 0.999352 (relevance 0.000062, redundancy 0.000499, conditional redundancy 0.999789, red weight 1.000000, cond red weight 1.000000)
+4. select 4, score 0.000206 (relevance 0.000012, redundancy 0.000196, conditional redundancy 0.000390, red weight 1.000000, cond red weight 1.000000)
+Elapsed time is 0.327354 seconds.
+</pre><p>The algorithm selects variables more or less randomly, until two of the three determinants have been included. At this point,
+            it discovers the strong significance of the missing one. In cases like this, the function will have more guidance when <i>going backwards</i>, i.e., starting with all variables, and iteratively dropping the least significant one. It will delay discarding any of the
+            relevant variables as long as possible:
+         </p><pre class="codeinput">[steps,sel_flag,rel,red,cond_red] = select_features(data(:,1:4),data(:,5),4,<span class="string">'degree'</span>, 3, <span class="string">'init'</span>, [ 1 2 3 4], <span class="string">'direction'</span>, <span class="string">'b'</span>);
+</pre><pre class="codeoutput">using settings: degree 3, pessimistic 0, dir_fwd 0, dir_bwd 1, prior 0.000000, red_wt 1.000000, cond_red_wt 1.000000
+done initial selection
+1. drop 4, score -0.000206 (relevance 0.000012, redundancy 0.000196, conditional redundancy 0.000390, red weight 1.000000, cond red weight 1.000000)
+2. drop 1, score -0.999328 (relevance 0.000072, redundancy 0.000487, conditional redundancy 0.999743, red weight 1.000000, cond red weight 1.000000)
+3. drop 2, score -0.000181 (relevance 0.000002, redundancy 0.000078, conditional redundancy 0.000257, red weight 1.000000, cond red weight 1.000000)
+4. drop 3, score -0.000062 (relevance 0.000062, redundancy -0.000000, conditional redundancy -0.000000, red weight 1.000000, cond red weight 1.000000)
+Elapsed time is 0.648296 seconds.
+</pre><p>This concludes our simple selection of feature selection examples. There is a lot to explore - hope you have fun with your
+            own experiments!
+         </p><pre class="codeinput"><span class="comment">% Copyright &copy; 3/13/2010 Stefan Schroedl</span>
+</pre><p class="footer"><br>
+            Published with MATLAB&reg; 7.8<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+% DEMO_FEATURE_SELECT - demonstrate feature selection algorithms on some
+% toy examples.
+
+%% Introduction
+% The problem of Feature Selection is: Given a (usually large) number of
+% noisy and partly redundant variables and a target that we would like to
+% predict, choose a small but indicative subset as input to a
+% classification or regression technique. While _wrappers_ employ one
+% specific such technique, _filters_ try to come up with a "most
+% informative subset" (in some sense to be defined). Several such criteria
+% are based on Shannon information (_mutual information_ between two
+% variables, or _interaction information_ between larger subsets). The
+% Matlab function |select_features| captures several criteria previously
+% proposed in the literature, and some generalizations thereof. For some
+% more background and comparisons, see e.g.: 
+% Gavin Brown, A New Perspective for Information Theoretic Feature
+% Selection, Artificial Intelligence and Statistics, 2009.
+
+%%
+%  In the first example, we generate a very simple dependence: X1,X2,X3 are
+%  normally distributed variables. Our target, X3, is a noisy observation
+%  of X1. X2 is uncorrelated with either of them.
+%
+%       X1
+%        \ 
+%     X2  X3
+
+nsamples      = 1000;
+data          = zeros(nsamples,3);
+data(:,[1 2]) = randn(nsamples,2);
+data(:,3)    =  0.5*data(:,1) + 0.5*randn(nsamples,1);
+
+%%
+% For calculating mutual information, continuous variables have to be
+% _discretized_. The function |quantize| offers several options to do this.
+% We choose the simplest case of binary variables.
+
+data_quant=quantize(data,'levels',2);
+
+%%
+% Then, we run the default feature selection algorithm, called 'first order
+% utility'. It is based on approximating the mutual information between the
+% set of selected variables and the target by expanding interaction
+% information terms of up to degree 2. In each step, the variable with the
+% highest estimated _incremental_ gain is selected greedily. The output
+% distinguishes between _relevance_, i.e., mutual information between a
+% feature and the target; _redundancy_, i.e., mutual information between
+% different variables; and _conditional redundancy_, which measures the
+% increase of mutual information between the previously selected variables
+% and the target, conditional on a selected variable.
+
+[steps,sel_flag,rel,red,cond_red] = select_features(data_quant(:,1:2),data_quant(:,3),2);
+
+%%
+% As expected, X1 gets a significantly higher score than X2. You can
+% inspect the results more closely in the output arguments (|steps| for the
+% sequence of selections, scores, and (conditional) redundancies;
+% |sel_flag| for the finally selected variables; and the final values of
+% relevance and conditional redundancy, for all variables. The final scores
+% are computed as sum([rel; - red; cond_red]). 
+
+%% Smoothing
+% A general issue with (especially higher-order) interaction information is
+% sparsity of data. By subdividing our observed data into many categories,
+% we are led to believe spurious associations. For example, look what
+% happens to the above example if we increase the quantization level and
+% decrease the number of samples:
+
+nsamples      = 100;
+data          = zeros(nsamples,3);
+data(:,[1 2]) = randn(nsamples,2);
+data(:,3)    =  0.5*data(:,1) + 0.5*randn(nsamples,1);
+data_quant=quantize(data,'levels',5);
+[steps,sel_flag,rel,red,cond_red] = select_features(data_quant(:,1:2),data_quant(:,3),2);
+
+%%
+% Notice that the conditional redundancy of the uncorrelated variable X2
+% (after addition of X1) now seems to be higher than the mutual information
+% between X1 and X2. Several remedies have been suggested, e.g.,
+% downweighting the (conditional) redundancy terms (You can explore these
+% options in the select_features function). In contrast, we propose to use
+% a common method in Bayesian statistics, namely adding a prior in the form
+% of "pseudo-samples' drawn from the marginal distributions. 
+
+[steps,sel_flag,rel,red,cond_red] = select_features(data_quant(:,1:2),data_quant(:,3),2,'prior',1);
+
+%%
+% In this case, we are adding one pseudo-sample to each possible
+% combination of joint variable values. As a result, while all scores
+% (including the one for X1) decrease, the irrelevant X2 is reduced much
+% more rapidly.
+
+%% Diamond
+% This example contains 4 variables in the well-known diamond shape. X4 is
+% our target.
+%
+%      X1
+%     /  \ 
+%    X2   X4
+%     \   /
+%      X3
+
+nsamples=10000;
+data=zeros(nsamples,4);
+data(:,1)=randn(nsamples,1);
+data(:,2)= 0.5*data(:,1) + 0.5*randn(nsamples,1);
+data(:,4)= 0.5*data(:,1) + 0.5*randn(nsamples,1);
+data(:,3)= 0.5*data(:,2) + 0.5*data(:,4) + 0.5*randn(nsamples,1);
+
+data_quant=quantize(data,'levels',2);
+[steps,sel_flag,rel,red,cond_red] = select_features(data_quant(:,1:3),data_quant(:,4),3, 'degree', 3);
+
+%%
+% Since X3 depends on X2 as well, X1 receives a higher score. Clearly, due
+% to the common dependency, X2 bears some mutual information on X4. Note,
+% however, how this is outweighed by the interaction term (redundancy -
+% conditional redundancy): In fact, once we know X1, X2 cannot provide any
+% additional information about X4.
+
+
+%% Higher-Order interaction
+% Assume binary variables X1 .. X5, where our target, X5, is the logical
+% _exclusive or_ of X1..X3. We include the independent X4 for illustration.
+%
+%       X1   X2  X3  X4
+%        \   |  /
+%           X5
+% 
+
+data=zeros(nsamples,5);
+data(:,1:4) = floor(rand(nsamples,4)/0.5);
+data(:,5)   = xor(xor(data(:,1),data(:,2)),data(:,3));
+[steps,sel_flag,rel,red,cond_red] = select_features(data(:,1:4),data(:,5),4);
+
+%%
+% The default algorithm only considers interactions of degree 2, and
+% therefore cannot find the relationship. We have to switch to degree 3:
+
+[steps,sel_flag,rel,red,cond_red] = select_features(data(:,1:4),data(:,5),4,'degree', 3);
+
+%%
+% The algorithm selects variables more or less randomly, until two of the
+% three determinants have been included. At this point, it discovers the
+% strong significance of the missing one. In cases like this, the function
+% will have more guidance when _going backwards_, i.e., starting with all
+% variables, and iteratively dropping the least significant one. It will
+% delay discarding any of the relevant variables as long as possible: 
+
+[steps,sel_flag,rel,red,cond_red] = select_features(data(:,1:4),data(:,5),4,'degree', 3, 'init', [ 1 2 3 4], 'direction', 'b');
+
+%%
+% This concludes our simple selection of feature selection examples. There
+% is a lot to explore - hope you have fun with your own experiments!
+
+% Copyright © 3/13/2010 Stefan Schroedl  
+##### SOURCE END #####
+-->
+   </body>
+</html>
